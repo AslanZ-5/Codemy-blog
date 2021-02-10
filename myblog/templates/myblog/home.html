@@ -7,10 +7,12 @@
 {% for post in object_list %}
     <li>
    <a href="{% url 'myblog:post_detail' post.pk %}"> {{post.title}}</a> ||
-    {{post.author}} || {{post.author.email}}<br>
+    {{post.author}} || {{post.author.email}}  {{ post.post_date}}<br>
     {{ post.body }}</li>
+    {% if user == post.author %}
     <a href="{% url 'myblog:delete_post' post.pk  %}" class="btn btn-danger">delete</a>
-
+    <a href="{% url 'myblog:update_post' post.pk  %}" class="btn btn-primary">update</a>
+    {% endif %}
 {% endfor %}
     </ul>
 <p></p>
