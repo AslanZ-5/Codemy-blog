@@ -1,0 +1,12 @@
+{% extends 'myblog/base.html' %}
+{% block content %}
+
+
+<h1 >Categories</h1>
+
+
+{% for cat in object_list %}
+  {{ cat }}<br>
+{% endfor %}
+
+{% endblock %}

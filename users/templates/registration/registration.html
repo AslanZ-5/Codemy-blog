@@ -1,0 +1,14 @@
+{% extends 'myblog/base.html' %}
+{% block title %} Register  {% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+<h1>Register</h1>
+<div class="mb-3">
+<form  method="post">
+    {% csrf_token %}
+    {{form|crispy}}
+    <button class="btn btn-secondary">Register</button>
+    </form>
+</div>
+{% endblock %}

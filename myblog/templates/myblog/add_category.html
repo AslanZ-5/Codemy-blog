@@ -1,0 +1,14 @@
+{% extends 'myblog/base.html' %}
+{% block title %} Add Post {% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+<h1>Add Blog Category</h1>
+<div class="mb-3">
+<form action="{% url 'myblog:add_category' %}" method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button class="btn btn-secondary">Add Category</button>
+    </form>
+</div>
+{% endblock %}

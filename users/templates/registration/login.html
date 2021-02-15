@@ -1,0 +1,14 @@
+{% extends 'myblog/base.html' %}
+{% block title %} Log in  {% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+<h1>Login</h1>
+<div class="mb-3">
+<form method="post">
+    {% csrf_token %}
+    {{form.as_p}}
+    <button class="btn btn-secondary">Login</button>
+    </form>
+</div>
+{% endblock %}

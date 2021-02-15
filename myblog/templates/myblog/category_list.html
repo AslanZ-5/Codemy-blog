@@ -1,0 +1,29 @@
+{% extends 'myblog/base.html' %}
+{% block content %}
+
+
+<h1>Category: {{cats}} </h1>
+{% if category_posts %}
+<ul>
+    {% for post in category_posts %}
+    <li>
+        <a href="{% url 'myblog:post_detail' post.pk %}"> {{post.title}}</a> ||
+        {{post.author}} ||{{post.author.email}} {{ post.post_date}}<br>
+        {{ post.body|slice:":100" }}
+    </li>
+    {% if user == post.author %}
+    <a href="{% url 'myblog:delete_post' post.pk  %}" class="btn btn-danger">delete</a>
+    <a href="{% url 'myblog:update_post' post.pk  %}" class="btn btn-primary">update</a>
+    {% else%}
+    <a title="hello" href="{% url 'myblog:delete_post' post.pk  %}" class="btn btn-danger"
+       style="pointer-events: none; opacity:0.5">delete</a>
+    <a title="hello" href="{% url 'myblog:update_post' post.pk  %}" class="btn btn-primary"
+       style="pointer-events: none; opacity:0.5">update</a>
+    {% endif %}
+    {% endfor %}
+
+</ul>
+ {% else %}
+    <h3>We haven't such "{{cats}}" category</h3>
+    {% endif %}
+{% endblock %}
