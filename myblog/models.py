@@ -26,7 +26,7 @@ class Post(models.Model):
     body = models.TextField()
     post_date = models.DateField(auto_now_add=True)
     category = models.CharField(max_length=255, default="coding")
-
+    likes = models.ManyToManyField(User,related_name="blog_post")
     def __str__(self):
         return f"{self.title} | {self.author}"
 
