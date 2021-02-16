@@ -12,5 +12,18 @@
 <br>
 <br>
 <a href="{% url 'myblog:home' %}" class="btn btn-secondary"> Back to home</a>
+<br>
+<br>
+<br>
+<form action="{% url 'myblog:add_like' post.pk %}" method="post">
+    {% csrf_token %}
+    {% if liked %}
+    <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-danger btn-sm"> Unlike</button>
+    {% else %}
+    <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-primary btn-sm"> like</button>
+    {% endif %}
+
+           likes -  {{ total_likes }}
+</form>
 
 {% endblock %}
