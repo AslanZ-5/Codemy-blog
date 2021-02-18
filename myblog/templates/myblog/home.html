@@ -9,7 +9,8 @@
     <li>
    <a href="{% url 'myblog:post_detail' post.pk %}"> {{post.title}}</a> ||
     {{post.author}} || Category: <a href="{% url 'myblog:category_list' post.category|slugify %}">{{post.category}}</a>  {{post.author.email}}  {{ post.post_date}}<br>
-    {{ post.body|slice:":100" }}</li>
+   {{ post.snippet }} </li>
+
     {% if user == post.author %}
     <a href="{% url 'myblog:delete_post' post.pk  %}" class="btn btn-danger">delete</a>
     <a href="{% url 'myblog:update_post' post.pk  %}" class="btn btn-primary">update</a>

@@ -15,13 +15,14 @@ choices_list = [i for i in choices]
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('title', 'tag','author', 'category','body' )
+        fields = ('title', 'tag', 'category', 'body','snippet')  # 'author',
         widgets = {
             "title": forms.TextInput(attrs={"class": "form-control"}),
             "tag": forms.TextInput(attrs={"class": "form-control"}),
-            "author": forms.TextInput(attrs={"class": "form-control", "placeholder":"user name","value":"","id":"elder"}),
+            # "author": forms.TextInput(attrs={"class": "form-control", "placeholder":"user name","value":"","id":"elder"}),
             "body": forms.Textarea(attrs={"class": "form-control"}),
-            "category": forms.Select(choices=choices_list, attrs={"class": "form-control"})
+            "category": forms.Select(choices=choices_list, attrs={"class": "form-control"}),
+            "snippet": forms.Textarea(attrs={"class": "form-control"}),
         }
 
 

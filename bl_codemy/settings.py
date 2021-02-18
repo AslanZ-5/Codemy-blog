@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'myblog',
     'crispy_forms',
     'users',
+    'ckeditor',
 ]
 
 MIDDLEWARE = [

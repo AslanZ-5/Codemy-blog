@@ -8,7 +8,7 @@
 <small>By: {{ post.author }} ({{ post.author.email }})</small><br>
 <small>Posted: {{post.post_date}} </small><br>
 <br>
-{{post.body}}
+{{post.body|safe}}
 <br>
 <br>
 <a href="{% url 'myblog:home' %}" class="btn btn-secondary"> Back to home</a>
