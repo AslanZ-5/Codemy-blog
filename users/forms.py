@@ -1,7 +1,8 @@
 from django import forms
 from django.contrib.auth.models import User
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm,UserChangeForm
 from datetime import datetime, date
+from .models import Profile
 
 class RegistrationForm(UserCreationForm):
     email = forms.EmailField(required=True, widget=forms.EmailInput(attrs={"class": "form-control"}))
@@ -19,3 +20,19 @@ class RegistrationForm(UserCreationForm):
         self.fields["username"].widget.attrs['class'] = "form-control"
         self.fields["password1"].widget.attrs['class'] = "form-control"
         self.fields["password1"].widget.attrs['class'] = "form-control"
+
+class ProfileChangeForms(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ["image"]
+
+
+class UserProfileChangeForm(UserChangeForm):
+    email = forms.EmailField(widget=forms.EmailInput(attrs={"class":"form-control"}))
+    username = forms.CharField(widget=forms.TextInput(attrs={"class":"form-control"}))
+    first_name = forms.CharField(widget=forms.TextInput(attrs={"class":"form-control"}))
+    last_name = forms.CharField(widget=forms.TextInput(attrs={"class":"form-control"}))
+    is_superuser = forms.CharField(widget=forms.CheckboxInput(attrs={"class":"form-check"}))
+    class Meta:
+        model = User
+        fields = ['first_name','last_name','username','email', 'password','is_superuser']
