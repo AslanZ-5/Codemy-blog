@@ -20,6 +20,7 @@ class Category(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=255)
+    header_image = models.ImageField(null=True, blank=True,upload_to='images/')
     tag = models.CharField(max_length=255, default="detail blog")
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     # body = models.TextField()

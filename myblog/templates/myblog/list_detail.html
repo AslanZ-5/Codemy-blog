@@ -2,8 +2,9 @@
 {% block title %} {{ post.tag }} {% endblock %}
 {% block content %}
 
-
-
+{% if post.header_image %}
+<img class="rounded-circle z-depth-2" src="{{post.header_image.url}}" ><br>
+{% endif %}
 <h1>{{ post.title }}</h1>
 <small>By: {{ post.author }} ({{ post.author.email }})</small><br>
 <small>Posted: {{post.post_date}} </small><br>
