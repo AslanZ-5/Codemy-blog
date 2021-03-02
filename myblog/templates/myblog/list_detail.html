@@ -3,11 +3,30 @@
 {% block content %}
 
 {% if post.header_image %}
-<img class="rounded-circle z-depth-2" src="{{post.header_image.url}}" ><br>
+<img class="rounded-circle z-depth-2" src="{{post.header_image.url}}"><br>
 {% endif %}
+<div class="template-demo">
+    {% if user.profile.fb_url %}
+    <a target="_blank" href="{{user.profile.fb_url}}">
+        <button type="button" class="btn btn-social-icon btn-outline-facebook"><i class="fa fa-facebook"></i></button>
+    </a>
+    {% endif %}
+    {% if user.profile.twitter_url %}
+    <a target="_blank" href="{{user.profile.twitter_url}}">
+        <button type="button" class="btn btn-social-icon btn-outline-twitter"><i class="fa fa-twitter"></i></button>
+    </a>
+    {% endif %}
+    {% if user.profile.instagram_url %}
+    <a target="_blank" href="{{user.profile.instagram_url}}">
+        <button type="button" class="btn btn-social-icon btn-outline-instagram"><i class="fa fa-instagram"></i></button>
+    </a>
+    {% endif %}
+</div>
+
+
 <h1>{{ post.title }}</h1>
-<small>By: {{ post.author }} ({{ post.author.email }})</small><br>
-<small>Posted: {{post.post_date}} </small><br>
+<small>Posted By: <a href="{% url 'profile_show' post.author.id %}">{{ post.author }}</a>   ({{ post.author.email }})</small><br>
+<small>Date: {{post.post_date}} </small><br>
 <br>
 {{post.body|safe}}
 <br>
@@ -24,7 +43,7 @@
     <button type="submit" name="post_id" value="{{post.id}}" class="btn btn-primary btn-sm"> like</button>
     {% endif %}
 
-           likes -  {{ total_likes }}
+    likes - {{ total_likes }}
 </form>
 
 {% endblock %}

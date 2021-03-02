@@ -3,12 +3,8 @@
 {% block content %}
 {% load crispy_forms_tags %}
 
-<h1>Profile Page</h1>
-<div class="col-md-6 mb-4">
-<img class="rounded-circle z-depth-2" src="{{user.profile.image.url}}" ><br>
-</div>
-    {{ user.username }}<br>
-{{ user.email }}
+<h1>Profile Update Page</h1>
+
 <form method="post">
     {% csrf_token %}
 {{form|crispy}}
