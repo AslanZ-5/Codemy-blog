@@ -1,0 +1,17 @@
+{% extends 'myblog/base.html' %}
+{% block title %} Log in  {% endblock %}
+{% block content %}
+{% load crispy_forms_tags %}
+
+
+<h1>Logout</h1>
+<div class="mb-3">
+<form action="{% url 'logout' %}" method="post">
+    {% csrf_token %}
+
+    <button class="btn btn-secondary">Logout</button>
+    </form>
+</div>
+<a href="{% url 'myblog:home' %}"> return to home page</a>
+
+{% endblock %}
