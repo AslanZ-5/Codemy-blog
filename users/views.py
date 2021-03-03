@@ -48,9 +48,7 @@ class ProfileShow(generic.DetailView):
     def get_context_data(self, *args, **kwargs):
         context = super(ProfileShow, self).get_context_data(*args, **kwargs)
         user_profile = get_object_or_404(Profile, id=self.kwargs['pk'])
-        user = get_object_or_404(User, id=self.kwargs['pk'])
         context["user_profile"] = user_profile
-        context['user'] = user
         return context
 
 

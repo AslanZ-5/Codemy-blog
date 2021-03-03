@@ -25,7 +25,7 @@
 
 
 <h1>{{ post.title }}</h1>
-<small>Posted By: <a href="{% url 'profile_show' post.author.id %}">{{ post.author }}</a>   ({{ post.author.email }})</small><br>
+<small>Posted By: <a href="{% url 'profile_show' post.author.profile.id %}">{{ post.author }}</a>   ({{ post.author.email }})</small><br>
 <small>Date: {{post.post_date}} </small><br>
 <br>
 {{post.body|safe}}

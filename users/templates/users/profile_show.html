@@ -11,29 +11,33 @@
 </div>
 
 <div class="template-demo">
-    {% if user.profile.fb_url %}
+    {% if user_profile.fb_url %}
     <a target="_blank" href="{{user_profile.fb_url}}">
         <button type="button" class="btn btn-social-icon btn-outline-facebook"><i class="fa fa-facebook"></i></button>
     </a>
     {% endif %}
-    {% if user.profile.twitter_url %}
+    {% if user_profile.twitter_url %}
     <a target="_blank" href="{{user_profile.twitter_url}}">
         <button type="button" class="btn btn-social-icon btn-outline-twitter"><i class="fa fa-twitter"></i></button>
     </a>
     {% endif %}
-    {% if user.profile.instagram_url %}
+    {% if user_profile.instagram_url %}
     <a target="_blank" href="{{user_profile.instagram_url}}">
         <button type="button" class="btn btn-social-icon btn-outline-instagram"><i class="fa fa-instagram"></i></button>
     </a>
     {% endif %}
 </div>
 
-<p> {{user.email}}</p>
-<p>{{user.first_name}}</p>
-<p>{{user.last_name}}</p>
+<p> {{user_profile.user.email}}</p>
+<p>{{user_profile.user.first_name}}</p>
+<p>{{user_profile.user.last_name}}</p>
 
 <br><br>
+
+
+{% if  user.username == user_profile.user.username %}
 <a class="btn btn-secondary" href="{% url 'profile_update' %}">Update Profile</a>
+{% endif %}
 <br>
 <br>
 <br>
