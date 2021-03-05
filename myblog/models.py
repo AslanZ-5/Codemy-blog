@@ -1,8 +1,8 @@
-from django.db import models
-from django.contrib.auth.models import User
-from django.urls import reverse
-from datetime import datetime, date
 from ckeditor.fields import RichTextField
+from django.contrib.auth.models import User
+from django.db import models
+from django.urls import reverse
+
 
 class Category(models.Model):
     name = models.CharField(max_length=255)
@@ -20,11 +20,11 @@ class Category(models.Model):
 
 class Post(models.Model):
     title = models.CharField(max_length=255)
-    header_image = models.ImageField(null=True, blank=True,upload_to='images/')
+    header_image = models.ImageField(null=True, blank=True, upload_to='images/')
     tag = models.CharField(max_length=255, default="detail blog")
     author = models.ForeignKey(User, on_delete=models.CASCADE)
     # body = models.TextField()
-    body = RichTextField(blank=True,null=True)
+    body = RichTextField(blank=True, null=True)
     post_date = models.DateField(auto_now_add=True)
     category = models.CharField(max_length=255, default="coding")
     snippet = models.CharField(max_length=255, default="Click Link Above to Read Blog Post... ")
@@ -38,3 +38,16 @@ class Post(models.Model):
 
     def total_likes(self):
         return self.likes.count()
+
+
+class Comment(models.Model):
+    post = models.ForeignKey(Post, related_name='comments', on_delete=models.CASCADE)
+    name = models.CharField(max_length=255)
+    body = models.TextField()
+    date_added = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f" {self.post.title} - {self.name}"
+
+    def get_absolute_url(self):
+        return reverse("myblog:post_detail", args={str(self.post.pk)})

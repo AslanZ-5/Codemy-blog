@@ -45,5 +45,33 @@
 
     likes - {{ total_likes }}
 </form>
+<br>
+<hr>
+<h2><strong>Comments</strong></h2>
+<div style="margin:40px">
+{% if not post.comments.all %}
+ <p>No comments is existing </p>
+    <a href="{% url 'myblog:add_comment' post.pk %}">Add Comment</a>
+{% else %}
+    <a href="{% url 'myblog:add_comment' post.pk %}">Add Comment</a>
 
+{% for comment in post.comments.all %}
+
+
+    <div  style="margin:40px;border:1px solid black">
+<strong>
+        {{comment.name}} ||
+{{comment.date_added}}
+    </strong>
+<br>
+<br>
+{{comment.body}}<br>
+    </div>
+{% endfor %}
+{% endif %}
+    <br>
+    <br>
+    <br>
+    <a href="{% url 'myblog:add_comment' post.pk %}">Add Comment</a>
+    </div>
 {% endblock %}

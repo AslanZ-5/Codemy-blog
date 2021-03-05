@@ -1,5 +1,6 @@
 from django import forms
-from .models import Post, Category
+
+from .models import Post, Category, Comment
 
 # cat = [
 #     ("cod", "cod"),
@@ -15,7 +16,7 @@ choices_list = [i for i in choices]
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ('title', 'tag', 'category', 'body','snippet','header_image')  # 'author',
+        fields = ('title', 'tag', 'category', 'body', 'snippet', 'header_image')  # 'author',
         widgets = {
             "title": forms.TextInput(attrs={"class": "form-control"}),
             "tag": forms.TextInput(attrs={"class": "form-control"}),
@@ -33,4 +34,14 @@ class AddCategoryForm(forms.ModelForm):
         widgets = {
             "name": forms.TextInput(attrs={"class": "form-control"}),
 
+        }
+
+
+class AddCommentForm(forms.ModelForm):
+    class Meta():
+        model = Comment
+        fields = [ 'body']
+        widgets = {
+            # 'name': forms.TextInput(attrs={'class': 'form-control'}),
+            'body': forms.Textarea(attrs={'class': 'form-control'})
         }

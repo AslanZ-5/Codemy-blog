@@ -1,16 +1,16 @@
-from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
+from django.http import HttpResponseRedirect
+from django.shortcuts import render, get_object_or_404
+from django.urls import reverse_lazy, reverse
 from django.views.generic import (ListView,
                                   DeleteView,
                                   CreateView,
                                   UpdateView,
                                   DetailView
                                   )
-from django.urls import reverse_lazy, reverse
-from .forms import PostForm, AddCategoryForm
-from django.http import HttpResponseRedirect
 
-from .models import Post, Category
+from .forms import PostForm, AddCategoryForm,AddCommentForm
+from .models import Post, Category, Comment
 
 
 def likeView(request, pk):
@@ -48,8 +48,8 @@ class PostDetail(DetailView):
     model = Post
     template_name = 'myblog/list_detail.html'
 
-    def get_context_data(self,**kwargs):
-        context = super(PostDetail, self).get_context_data( **kwargs)
+    def get_context_data(self, **kwargs):
+        context = super(PostDetail, self).get_context_data(**kwargs)
         stuff = get_object_or_404(Post, id=self.kwargs["pk"])
         liked = False
         if stuff.likes.filter(id=self.request.user.id).exists():
@@ -62,7 +62,6 @@ class PostDetail(DetailView):
         return context
 
 
-
 class AddPost(LoginRequiredMixin, CreateView):
     model = Post
     form_class = PostForm
@@ -70,6 +69,17 @@ class AddPost(LoginRequiredMixin, CreateView):
 
     def form_valid(self, form):
         form.instance.author = self.request.user
+        return super().form_valid(form)
+
+
+class AddComment(CreateView):
+    model = Comment
+    template_name = 'myblog/add_comments.html'
+    form_class = AddCommentForm
+
+    def form_valid(self, form):
+        form.instance.post_id = self.kwargs['pk']
+        form.instance.name = self.request.user.username
         return super().form_valid(form)
 
 
@@ -85,7 +95,7 @@ class AddCategory(LoginRequiredMixin, CreateView):
         context['cat_menu'] = cat_menu
         return context
 
-    
+
 class AllCategories(ListView):
     model = Category
     template_name = 'myblog/all_categories.html'
