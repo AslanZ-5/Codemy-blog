@@ -1,7 +1,8 @@
 from django import forms
-from django.contrib.auth.models import User
+from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, PasswordChangeForm
-from datetime import datetime, date
+from django.contrib.auth.models import User
+
 from .models import Profile
 
 
@@ -43,10 +44,19 @@ class UserProfileChangeForm(UserChangeForm):
 
 
 class PasswordChangeManuallyForm(PasswordChangeForm):
-    old_password = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control","type":"password"}))
-    new_password1 = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control","type":"password"}))
-    new_password2 = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control","type":"password"}))
+    old_password = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control", "type": "password"}))
+    new_password1 = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control", "type": "password"}))
+    new_password2 = forms.CharField(widget=forms.TextInput(attrs={"class": "form-control", "type": "password"}))
 
     class Meta:
         model = User
         fields = ["old_password", ]
+
+
+class LoginForm(AuthenticationForm):
+    username = forms.CharField(widget=forms.TextInput(attrs={'class': "form-control"}))
+    password = forms.CharField(widget=forms.TextInput(attrs={'class': "form-control"}))
+
+    class Meta:
+        model = User
+        fields = ['username', 'password']

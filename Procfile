@@ -1,0 +1,1 @@
+web: gunicorn bl_codemy.wsgi

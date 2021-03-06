@@ -23,8 +23,8 @@
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="{% url 'myblog:home' %}">Home</a>
                 </li>
@@ -37,29 +37,41 @@
 
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         {% for cat in cat_menu %}
-                        <li><a class="dropdown-item" href="{% url 'myblog:category_list' cat|slugify %}">{{cat}}</a></li>
+                        <li><a class="dropdown-item" href="{% url 'myblog:category_list' cat|slugify %}">{{cat}}</a>
+                        </li>
                         {% endfor %}
-                        <li><a style=" font-weight:bold;" class="dropdown-item" href="{% url 'myblog:all_categories'  %}">All Categories</a></li>
+                        <li><a style=" font-weight:bold;" class="dropdown-item"
+                               href="{% url 'myblog:all_categories'  %}">All Categories</a></li>
                     </ul>
 
                 </li>
                 {% endif %}
                 {% if user.is_authenticated %}
-                <li class="nav-item">
+                <li class="nav-item ">
                     <a class="nav-link" href="{% url 'myblog:add_post' %}">Add Blog</a>
                 </li>
 
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'myblog:add_category' %}">Add Category</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="{% url 'profile_show' user.id %}">Profile</a>
-                </li>
+
+                {% endif %}
+
+            </ul>
+
+
+            <ul style="position:absolute;right:5px;" class="navbar-nav ">
+                {% if user.is_authenticated %}
+
                 <li class="nav-item">
                     <a class="nav-link" href="{% url 'logout' %}">logout</a>
                 </li>
-                {% else %}
                 <li class="nav-item">
+                    <a class="nav-link" href="{% url 'profile_show' user.profile.id %}">{{user.first_name}}</a>
+                </li>
+
+                {% else %}
+                <li class="nav-item ml-auto">
                     <a class="nav-link" href="{% url 'register' %}">Register</a>
                 </li>
                 <li class="nav-item">
@@ -69,6 +81,8 @@
             </ul>
         </div>
     </div>
+
+
 </nav>
 <br>
 <div class="container">

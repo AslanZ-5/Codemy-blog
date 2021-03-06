@@ -7,7 +7,7 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 
-from .forms import RegistrationForm, UserProfileChangeForm, PasswordChangeManuallyForm
+from .forms import RegistrationForm, UserProfileChangeForm, PasswordChangeManuallyForm,LoginForm
 from .models import Profile
 
 
@@ -24,13 +24,13 @@ class UserRegisterView(generic.CreateView):
 
 def loginview(request):
     if request.method == "POST":
-        form = AuthenticationForm(data=request.POST)
+        form = LoginForm(data=request.POST)
         if form.is_valid():
             user = form.get_user()
             login(request, user)
             return redirect('myblog:home')
     else:
-        form = AuthenticationForm()
+        form = LoginForm()
     return render(request, 'users/login.html', {'form':form})
 
 
