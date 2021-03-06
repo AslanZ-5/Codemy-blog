@@ -9,7 +9,8 @@ from .models import Post, Category, Comment
 # ]
 ## CREATING SAME LIST LIKE ABOVE THROUGH TAKING CATEGORY FROM DB
 
-
+choices = Category.objects.all().values_list('name', 'name')
+choices_list = [i for i in choices]
 
 
 class PostForm(forms.ModelForm):
@@ -21,7 +22,7 @@ class PostForm(forms.ModelForm):
             "tag": forms.TextInput(attrs={"class": "form-control"}),
             # "author": forms.TextInput(attrs={"class": "form-control", "placeholder":"user name","value":"","id":"elder"}),
             "body": forms.Textarea(attrs={"class": "form-control"}),
-
+            "category": forms.Select(choices=choices_list, attrs={"class": "form-control"}),
             "snippet": forms.Textarea(attrs={"class": "form-control"}),
         }
 
